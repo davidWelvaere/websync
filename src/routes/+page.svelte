@@ -35,7 +35,6 @@
 <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
 	<h2 class="text-2xl font-bold text-center mb-6">Odoo-Elfsquad Sync Form</h2>
 	<form on:submit={handleSubmit} class="space-y-4">
-		<!-- Elfsquad Authentication -->
 		<div>
 			<label
 				for="elfsquadClientId"
@@ -61,7 +60,6 @@
 				class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
 		</div>
 
-		<!-- Odoo Authentication -->
 		<div>
 			<label for="odooUrl" class="block text-sm font-medium text-gray-700"
 				>Odoo URL</label>
@@ -107,7 +105,6 @@
 				class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
 		</div>
 
-		<!-- Odoo Fields to Sync -->
 		<div>
 			<label
 				for="odooFields"
@@ -123,7 +120,6 @@
 			></textarea>
 		</div>
 
-		<!-- Sync Options -->
 		<div class="flex items-center">
 			<input
 				type="checkbox"
@@ -151,14 +147,13 @@
 	</form>
 </div>
 
-<div class="max-w-lg mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow">
+<div class="max-w-[90%] mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow w-full">
 	<h3 class="text-lg font-semibold mb-4">Server Logs</h3>
-	<ul class="space-y-2">
-		{#each logs as log}
-			<li class="text-sm text-gray-700 bg-white p-2 rounded shadow">
-				<span class="font-mono text-gray-500">{log}</span>
-			</li>
-		{/each}
-	</ul>
+	{#if logs.length != 0}
+		<div class="max-w-[90] mx-auto bg-white p-3 rounded-lg overflow-auto max-h-60">
+			{#each logs as log}
+				<p>{log}</p>
+			{/each}
+		</div>
+	{/if}
 </div>
-
