@@ -1,16 +1,18 @@
 <script>
-	export let elfsquadClientId = "defaultClientId";
-	export let elfsquadClientSecret = "defaultClientSecret";
-	export let odooUrl = "https://example.com";
-	export let odooDb = "defaultDb";
-	export let odooUsername = "defaultUser";
-	export let odooPassword = "defaultPassword";
-	export let odooFields = "defaultField1,defaultField2";
-	export let validateUuid = false;
-	export let fullSync = false;
-	export let logs = [];
+	import axios from 'axios';
 
-	function handleSubmit(event) {
+	let elfsquadClientId = "defaultClientId";
+	let elfsquadClientSecret = "defaultClientSecret";
+	let odooUrl = "https://example.com";
+	let odooDb = "defaultDb";
+	let odooUsername = "defaultUser";
+	let odooPassword = "defaultPassword";
+	let odooFields = "defaultField1,defaultField2";
+	let validateUuid = false;
+	let fullSync = false;
+	let logs = [];
+
+	async function handleSubmit(event) {
 		event.preventDefault();
 		const data = {
 			elfsquadClientId,
@@ -25,13 +27,15 @@
 		};
 		const timestamp = new Date().toLocaleString();
 		console.log("Form submitted!", data);
-		let objectdata = ''
-		for (const [key, value] of Object.entries(data)) {
-			objectdata += `${key}: ${value}, `
-		}
 		const datastring =
-			"[" + timestamp + "]" + " " + "Form submitted with data: " + `{${objectdata}}`;
+			"[" + timestamp + "]" + " " + "Form submitted with data: " + `${JSON.stringify(data)}`;
 		logs = [...logs, datastring];
+
+		const response = await axios.post('http://37.97.133.63/sync-submit', data, {
+			headers: { "Content-Type": "application/json"}
+		})
+
+		console.log(response)
 	}
 </script>
 
