@@ -1,5 +1,7 @@
 <script>
 	import axios from 'axios';
+	import { io } from 'socket.io-client'
+
 
 	let elfsquadClientId = "defaultClientId";
 	let elfsquadClientSecret = "defaultClientSecret";
@@ -11,6 +13,14 @@
 	let validateUuid = false;
 	let fullSync = false;
 	let logs = [];
+
+	const socket = io(); 
+
+	socket.on('serverLog', (data) => {
+		if (data && data.message) {
+			logs.push(data.message)
+		}
+	})
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -31,11 +41,11 @@
 			"[" + timestamp + "]" + " " + "Form submitted with data: " + `${JSON.stringify(data)}`;
 		logs = [...logs, datastring];
 
-		const response = await axios.post('http://37.97.133.63/sync-submit', data, {
-			headers: { "Content-Type": "application/json"}
-		})
+		// const response = await axios.post('https://odoosync.welvaere.nl/sync-submit', data, {
+		// 	headers: { "Content-Type": "application/json"}
+		// })
 
-		console.log(response)
+		// console.log(response)
 	}
 </script>
 
