@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"br": "rm -rf \"/home/david/Documents 07-2023/Projects/serversync/build\" && mv \"/home/david/Documents 07-2023/Projects/websync/build\" \"/home/david/Documents 07-2023/Projects/serversync\""
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

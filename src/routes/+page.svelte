@@ -1,7 +1,6 @@
 <script>
-	import axios from 'axios';
-	import { io } from 'socket.io-client'
-
+	import axios from "axios";
+	import ServerLogs from "./serverLogs.svelte";
 
 	let elfsquadClientId = "defaultClientId";
 	let elfsquadClientSecret = "defaultClientSecret";
@@ -9,18 +8,15 @@
 	let odooDb = "defaultDb";
 	let odooUsername = "defaultUser";
 	let odooPassword = "defaultPassword";
-	let odooFields = "defaultField1,defaultField2";
+	let odooFields = [];
 	let validateUuid = false;
 	let fullSync = false;
-	let logs = [];
-
-	const socket = io(); 
-
-	socket.on('serverLog', (data) => {
-		if (data && data.message) {
-			logs.push(data.message)
-		}
-	})
+	const predefinedFields = [
+		"name",
+		"default_code",
+		"description",
+		"list_price",
+	];
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -35,17 +31,25 @@
 			validateUuid,
 			fullSync,
 		};
-		const timestamp = new Date().toLocaleString();
-		console.log("Form submitted!", data);
-		const datastring =
-			"[" + timestamp + "]" + " " + "Form submitted with data: " + `${JSON.stringify(data)}`;
-		logs = [...logs, datastring];
+		// const timestamp = new Date().toLocaleString();
+		// console.log("Form submitted!", data);
+		// const datastring =
+		// 	"[" +
+		// 	timestamp +
+		// 	"]" +
+		// 	" " +
+		// 	"Form submitted with data: " +
+		// 	`${JSON.stringify(data)}`;
 
-		// const response = await axios.post('https://odoosync.welvaere.nl/sync-submit', data, {
-		// 	headers: { "Content-Type": "application/json"}
-		// })
+		const response = await axios.post(
+			"http://localhost:8000/sync-submit",
+			data,
+			{
+				headers: { "Content-Type": "application/json" },
+			},
+		);
 
-		// console.log(response)
+		console.log(response);
 	}
 </script>
 
@@ -127,25 +131,23 @@
 				for="odooFields"
 				class="block text-sm font-medium text-gray-700"
 				>Odoo Fields to Sync</label>
-			<textarea
+
+			<select
 				id="odooFields"
 				bind:value={odooFields}
-				rows="5"
-				required
-				class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-				placeholder="Enter Odoo fields to sync, separated by commas."
-			></textarea>
+				multiple
+				size="5"
+				class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+				{#each predefinedFields as field}
+					<option value={field}>{field}</option>
+				{/each}
+			</select>
+
+			<p class="mt-2 text-sm text-gray-500">
+				Hold Ctrl/Cmd to select multiple fields
+			</p>
 		</div>
 
-		<div class="flex items-center">
-			<input
-				type="checkbox"
-				id="validateUuid"
-				bind:checked={validateUuid}
-				class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
-			<label for="validateUuid" class="ml-2 block text-sm text-gray-700"
-				>Check validity of Elfsquad UUID</label>
-		</div>
 		<div class="flex items-center">
 			<input
 				type="checkbox"
@@ -156,6 +158,16 @@
 				>Perform full sync</label>
 		</div>
 
+		<div class="flex items-center">
+			<input
+				type="checkbox"
+				id="checkUUID"
+				bind:checked={validateUuid}
+				class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+			<label for="fullSync" class="ml-2 block text-sm text-gray-700"
+				>Check validity of Elfsquad UUID</label>
+		</div>
+
 		<button
 			type="submit"
 			class="w-full py-2 px-4 bg-blue-600 text-white font-medium text-sm rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -164,14 +176,4 @@
 	</form>
 </div>
 
-<div class="max-w-[90%] mx-auto mt-8 bg-gray-100 p-4 rounded-lg shadow w-full">
-	<h3 class="text-lg font-semibold mb-4">Server Logs</h3>
-	{#if logs.length != 0}
-		<div
-			class="max-w-[98%] mx-auto bg-white p-3 rounded-lg overflow-scroll whitespace-nowrap max-h-60">
-			{#each logs as log}
-				<p>{log}</p>
-			{/each}
-		</div>
-	{/if}
-</div>
+<ServerLogs />
