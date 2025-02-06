@@ -5,7 +5,15 @@
 
 	socket.on('serverLog', (data) => {
 		if (data && data.message) {
-			logs = [...logs, data.message]
+			if (logs.length !== 0) {
+				const message = data.message
+				const now = new Date
+				const nowString = now.toISOString().replace('T', ' ').split('.')[0];
+				const logMessage = `[${nowString}] ${message}`
+				logs = [...logs, data.message]
+			} else {
+				logs = [...logs, data.message]
+			}
 		}
 	})
 </script>
