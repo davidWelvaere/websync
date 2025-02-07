@@ -7,10 +7,11 @@
 		if (data && data.message) {
 			if (logs.length !== 0) {
 				const message = data.message
-				const now = new Date
+				const now = new Date()
+				now.setHours(now.getHours() + 1)
 				const nowString = now.toISOString().replace('T', ' ').split('.')[0];
 				const logMessage = `[${nowString}] ${message}`
-				logs = [...logs, data.message]
+				logs = [...logs, logMessage]
 			} else {
 				logs = [...logs, data.message]
 			}

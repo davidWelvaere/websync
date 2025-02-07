@@ -1,27 +1,28 @@
 {
-	"name": "websync",
-	"private": true,
-	"version": "0.0.1",
-	"type": "module",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"br": "rm -rf \"/home/david/Documents 07-2023/Projects/serversync/build\" && mv \"/home/david/Documents 07-2023/Projects/websync/build\" \"/home/david/Documents 07-2023/Projects/serversync\""
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"autoprefixer": "^10.4.20",
-		"svelte": "^5.0.0",
-		"tailwindcss": "^3.4.9",
-		"vite": "^5.4.11"
-	},
-	"dependencies": {
-		"@sveltejs/adapter-static": "^3.0.8",
-		"@tailwindcss/forms": "^0.5.9",
-		"axios": "^1.7.9",
-		"socket.io-client": "^4.8.1"
-	}
+  "name": "websync",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "br": "rm -rf \"/home/david/Documents 07-2023/Projects/serversync/build\" && mv \"/home/david/Documents 07-2023/Projects/websync/build\" \"/home/david/Documents 07-2023/Projects/serversync\"",
+    "brw": "rm -rf \"/mnt/c/Users/robel/Projects/serversync/build\" && mv \"/mnt/c/Users/robel/Projects/websync/build\" \"/mnt/c/Users/robel/Projects/serversync\""
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "autoprefixer": "^10.4.20",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^3.4.9",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@tailwindcss/forms": "^0.5.9",
+    "axios": "^1.7.9",
+    "socket.io-client": "^4.8.1"
+  }
 }
