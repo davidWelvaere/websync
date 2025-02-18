@@ -42,7 +42,7 @@
 		// 	`${JSON.stringify(data)}`;
 
 		const response = await axios.post(
-			"http://localhost:8000/sync-submit",
+			"https://odoosync.welvaere.nl/sync-submit",
 			data,
 			{
 				headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@
 				class="block text-sm font-medium text-gray-700"
 				>Elfsquad Client Secret</label>
 			<input
-				type="password"
+				type="text"
 				id="elfsquadClientSecret"
 				bind:value={elfsquadClientSecret}
 				required
